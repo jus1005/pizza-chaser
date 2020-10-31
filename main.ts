@@ -2,6 +2,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     pizza.destroy()
     music.powerUp.play()
     info.changeLifeBy(1)
+    pause(1000)
+    pizza.setFlag(SpriteFlag.Invisible, false)
+    pizza.setPosition(randint(10, 150), randint(10, 110))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     ghost.setFlag(SpriteFlag.Invisible, true)
@@ -9,11 +12,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     info.changeLifeBy(-1)
     pause(1000)
     ghost.setFlag(SpriteFlag.Invisible, false)
-    ghost.setPosition(102, 60)
+    ghost.setPosition(randint(10, 150), randint(10, 110))
 })
 let ghost: Sprite = null
 let pizza: Sprite = null
 scene.setBackgroundColor(7)
+game.splash("Pizza Chaser", "by Davies Tech Software")
 let puppy = sprites.create(img`
     e e e . . . . e e e . . . . 
     c d d c . . c d d c . . . . 
@@ -90,9 +94,11 @@ ghost = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Enemy)
-puppy.setPosition(20, 60)
-pizza.setPosition(132, 60)
-ghost.setPosition(102, 60)
+puppy.setPosition(randint(10, 70), randint(10, 110))
+pizza.setPosition(randint(90, 150), randint(10, 110))
+ghost.setPosition(randint(90, 150), randint(10, 110))
 info.setLife(3)
+info.setScore(0)
 controller.moveSprite(puppy)
 ghost.follow(puppy, 10)
+info.startCountdown(60)
